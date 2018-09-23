@@ -1,11 +1,12 @@
-# SSMDemo
-### 框架结构
-
-com.company
-	|__dao
-	|__service
-		|__impl
-	|__controller
-	|__entity
-	|__exceprion
-	|__interceptor
+# SSM框架
+经过这一段时间的学习，我整理了一下Spring+SpringMVC+Mybatis的框架，希望对以后的自己有所帮助
+### 结构
+   com   
+ &emsp;|--company   
+   &emsp; &emsp;|--dao   
+   &emsp; &emsp;|--service   
+     &emsp;&ensp;&ensp;&ensp;&ensp;&ensp;  |--impl  
+   &emsp; &emsp;|--controller   
+   &emsp; &emsp;|--entity   
+   &emsp; &emsp;|--exceprion   
+   &emsp; &emsp;|--interceptor   
