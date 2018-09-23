@@ -17,3 +17,7 @@ entity是pojo
 exception是自定义的异常类   
 interceptor是拦截器，对请求进行拦截   
 controller对请求进行处理和跳转，所有controller继承baseController，baseController中对异常进行捕获和处理   
+#### 配置文件
+web.xml中dispachterServlet以及关联spring配置文件。过滤器的配置   
+spring-mybatis.xml是spring整合mybatis的配置文件
+mybatis-config中配置的是entity类的别名，以便在mapper文件中使用   
