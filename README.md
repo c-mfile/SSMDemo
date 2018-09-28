@@ -27,5 +27,3 @@ web.xml中dispachterServlet以及关联spring配置文件。过滤器的配置
 spring-mybatis.xml是spring整合mybatis的配置文件   
 mybatis-config中配置的是entity类的别名，以便在mapper文件中使用      
 mapper文件中可以通过使用动态SQL完成更加复杂的逻辑，这里没有写出。
-
-1
