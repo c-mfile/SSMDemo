@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!-- 启动servlet WebApplicationContext的包扫描，应该只有controller、viewresolver等注解 -->
+    <context:component-scan base-package="com.company.controller"></context:component-scan>
+    
+    <!-- 视图模板的参数配置 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+    	<property name="prefix" value="/WEB-INF/"></property>
+    	<property name="suffix" value=".jsp"></property>
+    </bean>
+    <!-- 支持文件上传视图解析器 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--允许上传的文件最大大小  单位是byte-->
+        <property name="maxUploadSize" value="60000000"/>
+    </bean>
+    <!-- 静态资源拦截配置 ： -->
+    <mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/>
+    <mvc:resources mapping="/css/**" location="/js/" cache-period="31556926"/>
+    <mvc:resources mapping="/image/**" location="/js/" cache-period="31556926"/>
+    
+    <!-- json自动转换解析配置，如果使用mvc标签需要改句配置，否则@Controller的类会加载失败 -->
+    <mvc:annotation-driven>
+	    <mvc:message-converters>
+	        <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+	        	<property name="supportedMediaTypes">
+		            <list>
+		                <value>text/plain;charset=UTF-8</value>
+		            </list>
+		        </property>
+	        </bean>
+	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+	        	<property name="supportedMediaTypes">
+		            <list>
+		                <value>text/html;charset=UTF-8</value>
+		            </list>
+		        </property>
+	        </bean>
+	    </mvc:message-converters>
+	</mvc:annotation-driven>
+</beans>

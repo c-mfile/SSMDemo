@@ -1,0 +1,191 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.zhiyou</groupId>
+  <artifactId>SSMTest</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- spring核心框架依赖 -->
+    <dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context</artifactId>
+	    <version>5.0.9.RELEASE</version>
+	</dependency>
+	<!-- spring的aop结合aspectj依赖 -->
+	<dependency>
+    	<groupId>org.springframework</groupId>
+	    <artifactId>spring-aspects</artifactId>
+	    <version>5.0.9.RELEASE</version>
+	</dependency>
+	<!-- 引入springmvc基础依赖 -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-webmvc</artifactId>
+	    <version>5.0.9.RELEASE</version>
+	</dependency>
+	
+	<!-- springmvc的转换支持json -->
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-core</artifactId>
+	    <version>2.9.6</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+	    <version>2.9.6</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-annotations</artifactId>
+	    <version>2.9.6</version>
+	</dependency>
+	<!-- springmvc支持文件上传的依赖 -->
+	<dependency>
+	    <groupId>commons-fileupload</groupId>
+	    <artifactId>commons-fileupload</artifactId>
+	    <version>1.3.3</version>
+	</dependency>
+	
+	<!-- 引入数据库驱动依赖 -->
+	<!-- 引入mybatis依赖 -->
+    <dependency>
+	    <groupId>org.mybatis</groupId>
+	    <artifactId>mybatis</artifactId>
+	    <version>3.4.6</version>
+	</dependency>
+	<!-- spring统一事务管理依赖 -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-tx</artifactId>
+	    <version>5.0.9.RELEASE</version>
+	</dependency>
+	<!-- spring和mybatis的集成依赖包 -->
+	<dependency>
+	    <groupId>org.mybatis</groupId>
+	    <artifactId>mybatis-spring</artifactId>
+	    <version>1.3.2</version>
+	</dependency>
+	<!-- 引入druid数据连接池框架 -->
+	<dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>druid</artifactId>
+	    <version>1.1.11</version>
+	</dependency>
+	<!-- 引入spring jdbc依赖 -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-jdbc</artifactId>
+	    <version>5.0.9.RELEASE</version>
+	</dependency>
+	<!-- mybatis自动分页插件依赖 -->
+	<dependency>
+	    <groupId>com.github.pagehelper</groupId>
+	    <artifactId>pagehelper</artifactId>
+	    <version>5.1.6</version>
+	</dependency>
+	
+	<!-- 引入log4j依赖 -->
+    <dependency>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>slf4j-log4j12</artifactId>
+	    <version>1.7.25</version>
+	</dependency>
+	
+    
+    <!-- jstl的依赖包 -->
+    <dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>jstl</artifactId>
+	    <version>1.2</version>
+	</dependency>
+    <!-- servlet项目底层api依赖，一般这些依赖web服务器都具有，但是eclipse编译环境没有，所以这里scope=provided -->
+    <dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>javax.servlet-api</artifactId>
+	    <version>4.0.1</version>
+	    <scope>provided</scope>
+	</dependency>
+	<dependency>
+       <groupId>javax.servlet.jsp</groupId>
+       <artifactId>jsp-api</artifactId>
+       <version>2.2</version>
+       <scope>provided</scope>
+     </dependency>
+     <!-- 集成tk.mybatis -->
+     <dependency>
+	    <groupId>tk.mybatis</groupId>
+	    <artifactId>mapper</artifactId>
+	    <version>3.4.0</version> 
+	 </dependency>
+	 <!-- ehcache支持 -->
+	 <dependency>
+	    <groupId>net.sf.ehcache</groupId>
+	    <artifactId>ehcache</artifactId>
+	    <version>2.10.5</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context-support</artifactId>
+	    <version>5.0.9.RELEASE</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.mybatis.caches</groupId>
+	    <artifactId>mybatis-ehcache</artifactId>
+	    <version>1.1.0</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-web</artifactId>
+		<version>5.0.9.RELEASE</version>
+	</dependency>
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>5.1.47</version>
+	</dependency>
+  </dependencies>
+  <build>
+  	<plugins>
+  		<plugin>
+  		  <!-- 添加插件 -->
+          <groupId>org.mybatis.generator</groupId>
+          <artifactId>mybatis-generator-maven-plugin</artifactId>
+          <version>1.3.2</version>
+          <!-- executions的作用是使得该项目具有：mvn mybatis-generator:generate启动命令 -->
+          <!-- 给插件添加依赖 -->
+          <dependencies>
+          	<dependency>
+			    <groupId>mysql</groupId>
+			    <artifactId>mysql-connector-java</artifactId>
+			    <version>5.1.32</version>
+			</dependency>
+			<dependency>
+			    <groupId>tk.mybatis</groupId>
+			    <artifactId>mapper</artifactId>
+			    <version>3.4.0</version> 
+			 </dependency>
+          </dependencies>
+          <!-- 给插件配置参数 -->
+          <configuration>
+          	<!-- 生成代码配置文件的路径 -->
+          	<configurationFile>${basedir}/src/main/resources/generatorConfig.xml</configurationFile>
+          	<overwrite>true</overwrite>
+          	<verbose>true</verbose>
+          </configuration>
+        </plugin>
+        <!-- 内置Tomcat服务器插件 -->
+        <plugin>
+          <groupId>org.apache.tomcat.maven</groupId>
+          <artifactId>tomcat7-maven-plugin</artifactId>
+          <version>2.3-SNAPSHOT</version>
+        </plugin>
+  	</plugins>
+  </build>
+</project>

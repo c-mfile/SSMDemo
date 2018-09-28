@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <!-- settings里面是一些mybatis的底层配置参数 -->
+  <settings>
+  	<setting name="cacheEnabled" value="true"/> <!-- 开启mybatis的二级缓存 -->
+  	<setting name="logImpl" value="SLF4J"/>
+  	<setting name="mapUnderscoreToCamelCase" value="true"/>
+  	<setting name="lazyLoadingEnabled" value="true"/>
+  	<setting name="aggressiveLazyLoading" value="false"/>
+  </settings>
+
+  <!-- typeAliases用来配置mapper中引用的类型名称的简称(别名) -->
+  <typeAliases>
+  	<!-- 通过包名称配置别名，该方法配置的别名就直接等于包下的类名（去掉包名称的部分）
+  	          或者类名称首字母小写-->
+  	<package name="com.company.model"/>
+  </typeAliases>
+  
+  <plugins>
+  	<!-- 添加pagehelper插件配置 -->
+  	<plugin interceptor="com.github.pagehelper.PageInterceptor">
+  		<property name="helperDialect" value="mysql"/>
+  	</plugin>
+  </plugins>
+</configuration>

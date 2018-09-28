@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+  <properties resource="jdbc.properties"/>
+  <context id="mysqltables" targetRuntime="MyBatis3" defaultModelType="flat">
+    <property name="javaFileEncoding" value="UTF-8"/>
+    <property name="beginningDelimiter" value="`"/>
+    <property name="endingDelimiter" value="`"/>
+  	<plugin type="${mapper.plugin}">
+        <property name="mappers" value="${mapper.Mapper}"/>
+    </plugin>
+    <jdbcConnection driverClass="${jdbc.driver}"
+        connectionURL="${jdbc.url}"
+        userId="${jdbc.username}"
+        password="${jdbc.password}">
+    </jdbcConnection>
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+	
+	<!-- 实体类的生成基本配置 -->
+    <javaModelGenerator targetPackage="com.company.model" targetProject="src/main/java">
+      <property name="enableSubPackages" value="true" />
+      <property name="trimStrings" value="true" />
+    </javaModelGenerator>
+	<!-- mapper.xml配置文件的路径等参数配置 -->
+    <sqlMapGenerator targetPackage="com.company.dao"  targetProject="src/main/resources">
+      <property name="enableSubPackages" value="true" />
+    </sqlMapGenerator>
+	<!-- 配置mapper接口的代码生成路径 -->
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.company.dao"  targetProject="src/main/java">
+      <property name="enableSubPackages" value="true" />
+    </javaClientGenerator>
+	
+	<!-- 每一个table标签代表着一个表的代码自动生成设置 -->
+    <!-- <table tableName="tb_user" domainObjectName="TbUser" >
+      <property name="useActualColumnNames" value="false"/>
+      <generatedKey column="user_id" sqlStatement="mysql" identity="true"/>
+    </table>
+    <table tableName="tb_role" domainObjectName="TbRole" >
+      <property name="useActualColumnNames" value="false"/>
+      <generatedKey column="role_id" sqlStatement="mysql" identity="true"/>
+    </table>
+    <table tableName="tb_function" domainObjectName="TbFunction" >
+      <property name="useActualColumnNames" value="false"/>
+      <generatedKey column="function_id" sqlStatement="mysql" identity="true"/>
+    </table> -->
+    <table tableName="tb_user_role" domainObjectName="TbUserRole" >
+    </table>
+    
+  </context>
+</generatorConfiguration>

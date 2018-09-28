@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- 启动root WebApplicationContext的包扫描，dao层和service层的包应该再次被扫描 -->
+    <context:component-scan base-package="com.company"></context:component-scan>
+    
+    <!-- 配置druid数据源 -->
+   	<context:property-placeholder location="classpath:jdbc.properties"/>
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+    	<property name="driverClassName" value="${jdbc.driver}"/>
+	    <property name="url" value="${jdbc.url}"/>
+	    <property name="username" value="${jdbc.username}"/>
+	    <property name="password" value="${jdbc.password}"/>
+	    <property name="filters" value="stat,wall"/>
+	    <property name="maxActive" value="20"/>
+	    <property name="initialSize" value="1"/>
+	    <property name="maxWait" value="60000"/>
+	    <property name="minIdle" value="1"/>
+	    <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+	    <property name="minEvictableIdleTimeMillis" value="300000"/>
+	    <property name="validationQuery" value="SELECT 'x'"/> <!-- 检查数据连接成功的语句 -->
+	    <property name="testWhileIdle" value="true"/>
+	    <property name="testOnBorrow" value="false"/>
+	    <property name="testOnReturn" value="false"/>
+	    <property name="proxyFilters">
+	    	<list> <ref bean="stat-filter"/></list>
+	    </property>
+    </bean>
+    <!-- 可选项 druid监控统计bean 对应上文dataSource中的proxyFilters --> 
+    <bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter"> 
+    	<property name="slowSqlMillis" value="1000" />
+    	<property name="logSlowSql" value="true" />
+    	<property name="mergeSql" value="true" />
+    </bean>
+    <!-- 引入mybatis的SqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 引入druid连接池数据源 -->
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="mapperLocations" value="classpath:com/company/dao/*Mapper.xml"/>
+        <!-- 添加mybatis.xml配置文件的引入 -->
+    	<property name="configLocation" value="classpath:mybatis.xml"></property>
+    </bean>
+	<!-- 添加mapper Dao的扫描 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.company.dao"/>
+    </bean>
+    
+    <!-- 事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--事务详情(事务通知/增强)， 在aop筛选基础上，确定使用什么样的事务。例如：读写、只读等
+        <tx:attributes> 用于配置事务详情（属性属性）
+            <tx:method name=""/> 详情具体配置
+                propagation 传播行为 ， REQUIRED：必须；REQUIRES_NEW:必须是新的 read-only 是否是只读事物
+                isolation 隔离级别 read-only 只读事物
+    -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="select*" read-only="true"/>
+            <tx:method name="find*" read-only="true"/>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+    <!--支持基于注解的aspectj-->
+    <aop:aspectj-autoproxy/>
+    <!--AOP编程，切入点表达式 确定增强的连接器，从而获得切入点-->
+    <aop:config>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.company.service..*.*(..))"/>
+    </aop:config>
+    <!-- 引入tk.mybatis的通用map -->
+    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.company.dao"/>
+    </bean>
+    
+    <!-- 引入spring-ehcache.xml -->
+    <import resource="spring-ehcache.xml"/>
+</beans>
